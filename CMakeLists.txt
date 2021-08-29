@@ -10,12 +10,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Find Packages
 find_package(PCL 1.8 REQUIRED)
 
+if(PCL_FOUND)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
-
-include(CTest)
-enable_testing()
+endif()
 
 # Add Executable - add the executable
 add_executable(process src/pcd_read.cpp)
