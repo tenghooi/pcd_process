@@ -7,35 +7,23 @@ project(pcd_process VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# Set destination of executable
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY})
+
 # Find Packages
 find_package(PCL 1.8 REQUIRED)
 
+# Include PCL library
 if(PCL_FOUND)
-include_directories(${PCL_INCLUDE_DIRS})
-link_directories(${PCL_LIBRARY_DIRS})
-add_definitions(${PCL_DEFINITIONS})
+    include_directories(${PCL_INCLUDE_DIRS})
+    link_directories(${PCL_LIBRARY_DIRS})
+    add_definitions(${PCL_DEFINITIONS})
 endif()
 
-# Add Executable - add the executable
-add_executable(process src/pcd_read.cpp)
-target_link_libraries(process ${PCL_LIBRARIES})
+# Add executable
+add_executable(pcd_process src/pcd_process.cpp)
+target_link_libraries(pcd_process ${PCL_LIBRARIES})
 
-#[[
-cmake_minimum_required(VERSION 3.0.0)
-
-#set the project name and version
-project(helloWorld VERSION 1.0)
-
-#add the executable
-add_executable(helloWorld helloworld.cpp)
-
-#specify the C++ standard
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
-# configure a header file to pass the version number only
-configure_file(helloWorldConfig.h.in helloWorldConfig.h)
-]]
 
 
 
