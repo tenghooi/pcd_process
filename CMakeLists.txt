@@ -21,7 +21,8 @@ if(PCL_FOUND)
 endif()
 
 # Add executable
-add_executable(pcd_process src/pcd_process.cpp)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+add_executable(pcd_process src/main.cpp src/functions.cpp)
 target_link_libraries(pcd_process ${PCL_LIBRARIES})
 
 
