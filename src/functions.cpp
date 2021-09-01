@@ -1,5 +1,16 @@
 #include "functions.h"        
 
+// Utility function used in readConfig that convert '(' , ')' and ',' to space.
+std::string punc2space(std::string& str)
+{
+   for(std::string::iterator it = str.begin(); it != str.end(); ++it)
+   {
+      if(*it == '(' | *it == ')' | *it == ',')
+         *it = ' ';
+   }
+   return str;
+}
+
 void readConfig(Config& config)
 {
    std::ifstream fin("config.txt");
@@ -25,6 +36,11 @@ void readConfig(Config& config)
             std::istringstream is(value);
             is >> std::boolalpha >> config.view_cloud;
          }
+         else if (key == "view_filtered_cloud")
+         {
+            std::istringstream is(value);
+            is >> std::boolalpha >> config.view_filtered_cloud;
+         }
          else if (key == "save_ascii")
          {
             std::istringstream is(value);
@@ -40,11 +56,34 @@ void readConfig(Config& config)
          }
          else if (key == "min_vec")
          {
+            std::vector<float> v;
+            float temp;
+
+            std::istringstream is(punc2space(value));
+
+            while(is >> temp)
+            {
+               v.push_back(temp);
+            }
+
+            config.min_vec = Eigen::Vector4f(v.data());
+            //std::cout << config.min_vec << std::endl;
 
          }
          else if (key == "max_vec")
          {
+            std::vector<float> v;
+            float temp;
 
+            std::istringstream is(punc2space(value));
+
+            while(is >> temp)
+            {
+               v.push_back(temp);
+            }
+
+            config.max_vec = Eigen::Vector4f(v.data());
+            //std::cout << config.max_vec << std::endl;
          }
          else
             std::cerr << key << " shouldn't exist in config.txt" << std::endl;

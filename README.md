@@ -39,3 +39,7 @@ At the root folder, run: `./pcl_process`
 In the root folder, you can find the ***config.txt*** file. Use the file to specify the *input pcd path directory* and *save path directory*.
 
 You can also set which function to activate using boolean value in the configuration file.
+
+### TODO
+-[ ] Allow for different point type. Currently works for pcl::PointXYZI.
+-[ ] Function for saving ascii to binary format pcd.

@@ -1,7 +1,8 @@
 filter = true
-min_vec = (-2.0, -2.0, -2.0, 1.0)
-max_vec = (2.0, 2.0, 2.0, 1.0)
+min_vec = (-10.0, -10.0, -10.0, 1.0)
+max_vec = (10.0, 10.0, 10.0, 1.0)
 view_cloud = true
+view_filtered_cloud = true
 save_ascii = true
 input_pcd_path = test_data/sample1.pcd
 save_pcd_path = test_data/sampleXYZ.pcd

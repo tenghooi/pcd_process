@@ -18,12 +18,16 @@ struct Config
    Eigen::Vector4f max_vec;
    
    bool view_cloud = false;
+   bool view_filtered_cloud = false;
    bool save_ascii = false;
 
    std::string input_pcd_path = "test_data/sample1.pcd";
    std::string save_pcd_path = "test_data/sampleXYZ.pcd";
    
 };
+
+// Utility function used in readConfig that convert '(' , ')' and ',' to space.
+std::string punc2space(std::string& str);
 
 void readConfig(Config& config);
 
