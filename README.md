@@ -41,5 +41,6 @@ In the root folder, you can find the ***config.txt*** file. Use the file to spec
 You can also set which function to activate using boolean value in the configuration file.
 
 ### TODO
--[ ] Allow for different point type. Currently works for pcl::PointXYZI.
--[ ] Function for saving ascii to binary format pcd.
+- [ ] Allow for different point type. Currently works for pcl::PointXYZI.
+- [ ] Function for saving ascii to binary format pcd.
+- [ ] Create 2 viewer windows for filtered and input point cloud.
