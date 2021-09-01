@@ -1,5 +1,17 @@
 #include "functions.h"        
 
+// Utility function used in readConfig that convert '(' , ')' and ',' to space.
+std::string punc2space(std::string& str)
+{
+   for(std::string::iterator it = str.begin(); it != str.end(); ++it)
+   {
+      if(*it == '(' | *it == ')' | *it == ',')
+         *it = ' ';
+   }
+   return str;
+}
+
+// Simple parser that reads config.txt and set the config object attributes.
 void readConfig(Config& config)
 {
    std::ifstream fin("config.txt");
@@ -25,6 +37,11 @@ void readConfig(Config& config)
             std::istringstream is(value);
             is >> std::boolalpha >> config.view_cloud;
          }
+         else if (key == "view_filtered_cloud")
+         {
+            std::istringstream is(value);
+            is >> std::boolalpha >> config.view_filtered_cloud;
+         }
          else if (key == "save_ascii")
          {
             std::istringstream is(value);
@@ -40,11 +57,34 @@ void readConfig(Config& config)
          }
          else if (key == "min_vec")
          {
+            std::vector<float> v;
+            float temp;
+
+            std::istringstream is(punc2space(value));
+
+            while(is >> temp)
+            {
+               v.push_back(temp);
+            }
+
+            config.min_vec = Eigen::Vector4f(v.data());
+            //std::cout << config.min_vec << std::endl;
 
          }
          else if (key == "max_vec")
          {
+            std::vector<float> v;
+            float temp;
 
+            std::istringstream is(punc2space(value));
+
+            while(is >> temp)
+            {
+               v.push_back(temp);
+            }
+
+            config.max_vec = Eigen::Vector4f(v.data());
+            //std::cout << config.max_vec << std::endl;
          }
          else
             std::cerr << key << " shouldn't exist in config.txt" << std::endl;
@@ -53,6 +93,7 @@ void readConfig(Config& config)
    }
 }
 
+// Function to opens a window to view point cloud.
 void viewCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud)
 {
    pcl::visualization::CloudViewer viewer ("Cloud Viewer");
@@ -60,6 +101,7 @@ void viewCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud)
    while (!viewer.wasStopped()){}
 }
 
+// Function to crop the point cloud in a box region.
 void filterBox(pcl::PointCloud<pcl::PointXYZI>::Ptr input_cloud,
                pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_filtered,
                Eigen::Vector4f min_vec,
@@ -72,8 +114,18 @@ void filterBox(pcl::PointCloud<pcl::PointXYZI>::Ptr input_cloud,
    boxFilter.filter(*cloud_filtered);
 }
 
+// Save binary pcd in ascii (xyz) format.
 void saveAsASCII(std::string path, pcl::PointCloud<pcl::PointXYZI>::Ptr cloud)
 {
    pcl::io::savePCDFileASCII(path, *cloud);
 }
 
+// Load pcd file into program.
+int loadPCD(std::string path, pcl::PointCloud<pcl::PointXYZI>::Ptr cloud)
+{
+   if(pcl::io::loadPCDFile<pcl::PointXYZI> (path, *cloud)==-1)
+   {
+      PCL_ERROR("Couldn't load pcd file. \n");
+      return -1;
+   }
+}
