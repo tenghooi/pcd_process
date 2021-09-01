@@ -13,15 +13,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY})
 # Find Packages
 find_package(PCL 1.8 REQUIRED)
 
+# Include header files
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
 # Include PCL library
-if(PCL_FOUND)
-    include_directories(${PCL_INCLUDE_DIRS})
-    link_directories(${PCL_LIBRARY_DIRS})
-    add_definitions(${PCL_DEFINITIONS})
-endif()
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 # Add executable
-include_directories(${PROJECT_SOURCE_DIR}/include)
 add_executable(pcd_process src/main.cpp src/functions.cpp)
 target_link_libraries(pcd_process ${PCL_LIBRARIES})
 
