@@ -33,7 +33,7 @@ cmake ..
 make
 ```
 ### Running the application
-At the root folder, run: `./pcl_process`
+At the root folder, run: `./pcd_process`
 
 ### Configuring the parameter
 In the root folder, you can find the ***config.txt*** file. Use the file to specify the *input pcd path directory* and *save path directory*.
