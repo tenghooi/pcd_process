@@ -21,6 +21,10 @@ include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
+# Include OctoMap library
+include_directories(${OCTOMAP_INCLUDE_DIRS})
+link_libraries(${OCTOMAP_LIBRARIES})
+
 # Add executable
 add_executable(pcd_process src/main.cpp src/functions.cpp)
 target_link_libraries(pcd_process ${PCL_LIBRARIES})

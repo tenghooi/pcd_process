@@ -1,6 +1,6 @@
 filter = true
-min_vec = (-7.0, -7.0, -10.0, 1.0)
-max_vec = (7.0, 7.0, 10.0, 1.0)
+min_vec = (-5.0, -5.0, -5.0, 1.0)
+max_vec = (5.0, 5.0, 5.0, 1.0)
 view_cloud = true
 view_filtered_cloud = true
 save_ascii = false
