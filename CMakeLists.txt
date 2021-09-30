@@ -10,8 +10,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Set destination of executable
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY})
 
+# Set path of OctoMap cmake files
+# Change the path to where the octomap is installed in your machine
+list(APPEND CMAKE_PREFIX_PATH "/home/tenghooi/MyRepos/octomap/lib/cmake/octomap")
+
 # Find Packages
 find_package(PCL 1.8 REQUIRED)
+find_package(OCTOMAP CONFIG REQUIRED)
 
 # Include header files
 include_directories(${PROJECT_SOURCE_DIR}/include)
