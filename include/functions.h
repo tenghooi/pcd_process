@@ -11,6 +11,9 @@
 #include <pcl/point_types.h> 
 #include <pcl/filters/crop_box.h>  
 
+// header files from OctoMap library
+// #include <octomap/octomap.h>
+
 // Attributes of config.
 struct Config
 {
