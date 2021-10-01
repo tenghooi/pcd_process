@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "functions.h"
 
 #include <octomap/octomap.h>                 
@@ -55,25 +56,38 @@ int main(int argc, const char** argv)
 
     // insert cloud_filtered into Octree and convert to OctoMap
     // create octree with 0.01 resolution
-    octomap::OcTree tree(0.01);
+    octomap::OcTree tree(0.08);
+    octomap::OcTree tree2(0.08);
     octomap::point3d sensor_origin {0.0, 0.0, 0.0};
     octomap::Pointcloud octocloud;
     
-    /*
+    auto start = std::chrono::high_resolution_clock::now();
+    
     for(auto p:(*cloud_filtered).points)
     {
-        tree.updateNode(octomap::point3d(p.x, p.y, p.z), true);
+        tree2.updateNode(octomap::point3d(p.x, p.y, p.z), true);
     }
-    */
+    
+    auto stop1 = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop1 - start);
+    std::cout << "Time for inserting and updating tree using updateNode: " << duration.count() << " ms." << std::endl;
+
     for(auto p:(*cloud_filtered).points)
     {
         octomap::point3d endpoint(p.x, p.y, p.z);
         octocloud.push_back(endpoint);
     }
+    auto stop2 = std::chrono::high_resolution_clock::now();
+    auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(stop2 - stop1);
+    std::cout << "Time for inserting into octocloud: " << duration2.count() << " ms." << std::endl;
 
     tree.insertPointCloud(octocloud, sensor_origin);
+    auto stop3 = std::chrono::high_resolution_clock::now();
+    auto duration3 = std::chrono::duration_cast<std::chrono::milliseconds>(stop3 - stop2);
+    std::cout << "Time for inserting into octree: " << duration3.count() << " ms." << std::endl;
+
     tree.updateInnerOccupancy();
-    outputStatistics(tree);
+    //outputStatistics(tree);
     // tree.writeBinary("sample.bt");
     tree.write("sam.ot");
 

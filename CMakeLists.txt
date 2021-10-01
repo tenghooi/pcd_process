@@ -12,7 +12,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY})
 
 # Set path of OctoMap cmake files
 # Change the path to where the octomap is installed in your machine
-list(APPEND CMAKE_PREFIX_PATH "/home/tenghooi/MyRepos/octomap/lib/cmake/octomap")
+# list(APPEND CMAKE_PREFIX_PATH "/home/tenghooi/MyRepos/octomap/lib/cmake/octomap")
+list(APPEND CMAKE_PREFIX_PATH "/home/tenghooi/External_Repo/octomap/lib/cmake/octomap")
 
 # Find Packages
 find_package(PCL 1.8 REQUIRED)
